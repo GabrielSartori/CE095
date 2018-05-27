@@ -1,6 +1,6 @@
-# CE-095 - Teoria da Avaliação (TRI)
+# CE-095 - Teorias de Avaliação
 
-A disciplina de Teoria da Avaliação foi ministrada pelo Prof.
+A disciplina de Teorias de Avaliação foi ministrada pelo Prof.
 [Adilson dos Anjos](https://docs.ufpr.br/~aanjos/) no 1º semestre de
 2018.
 

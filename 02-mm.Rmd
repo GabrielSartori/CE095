@@ -1,0 +1,46 @@
+# Materias e Métodos
+
+O materias e métodos são descritos a seguir.
+
+## Materias
+
+O conjunto de dados é um produto dos esforços da turma de Teorias de
+Avaliação, 1º semestre de 2018, com uma pequena contribuição da turma passada.
+A forma de coleta se deu atráves de um formulario online que ficou disponivel
+na plataforma do [Google](https://www.google.com/forms/about/) por 21 dias.
+
+O desenvolvimento do questinário foi feito em 5 etapas.
+
+1. Elaboração dos itens
+2. Validação dos itens
+3. Seleção dos itens
+4. Elaboração de Fatores Associados
+5. Disponibilização do formulário
+
+Para a execução da 1ª e 2ª etapa utilizou-se como embasamento o
+[guia de elaboração de revisão de itens da INEP - 2012](www.ufpr.br/~aanjos/CE095/guia_elaboracao_revisao_itens_2012_INEP.pdf).
+Cada aluno desenvolveu 3 questões que foram depois distribuidas de forma
+aleatoria para um dos colegas avaliar se o item estava de acordo ou não.
+A ideia básica para a criação e validação dos itens era possuir
+**TEXTO-BASE**, **ENUNCIADO**, **ALTERNATIVAS** e **GABARITO**.
+Dos itens que passaram dessas 2 primeiras etapas, 20 foram selecionados
+e foram complementados com mais 6 itens de um instrumento de medida anterior
+ao nosso que apresentaram boa calibração. Ao todo tivemos 26 itens no nosso
+intrusmento de medida.
+
+Após isso foi elaborado candidatos a fatores associados dos quais foi
+escolhido três e então o questionario foi disponibilizado no dia 10 de Maio
+de 2018.
+
+**Descrição do conjunto de dados com summary**
+
+
+## Métodos
+
+Falar os métodos utilizados (descreve-los)
+Modelo de três parâmetros
+
+## Recursos Computacionais
+
+Para as análises o software utilizado foi @software-r e os pacotes utilizados
+foram:

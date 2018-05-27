@@ -1,0 +1,37 @@
+---
+bibliography: [book.bib]
+biblio-style: apalike
+link-citations: yes
+---
+
+```{r config, warning=FALSE, echo=FALSE, message=FALSE}
+# Options default dos chuncks
+knitr::opts_chunk$set(
+  message = FALSE,
+  echo = FALSE,
+  warning = FALSE,
+  cache = TRUE,
+  fig.pos = "H",
+  fig.align = "center",
+  fig.height = 7,
+  fig.width = 9
+)
+
+# Options xtable
+options(xtable.comment = FALSE,
+        xtable.table.placement = "H",
+        knitr.kable.NA = "")
+```
+
+```{r biblioteca}
+# Bibliotecas
+library(knitr)
+```
+
+```{r data}
+
+```
+
+O presente trabalho é fruto dos esforços da turma do 1º semestre de 2018
+do curso de Teorias de Avaliação ministrada pelo professor
+[Adilson dos Anjos]().

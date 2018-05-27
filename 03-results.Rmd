@@ -1,0 +1,13 @@
+# Resultados
+
+## Análise Descritiva
+
+Curva caracteristica do teste
+Curva dos itens mais relevantes dos itens menos relevantes
+maior score menor score
+
+
+## Aplicação do Modelo X
+
+
+Criar escala interpretavel

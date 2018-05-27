@@ -1,0 +1,228 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{natbib}
+\bibliographystyle{apalike}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+  \title{}
+  \pretitle{\vspace{\droptitle}}
+  \posttitle{}
+  \author{}
+  \preauthor{}\postauthor{}
+  \date{}
+  \predate{}\postdate{}
+
+\usepackage{booktabs}
+\usepackage{amsthm}
+\usepackage{float}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{eso-pic}
+\newcommand\BackgroundPic{%
+\put(0,0){%
+\parbox[b][\paperheight]{\paperwidth}{%
+\vfill
+\centering
+\includegraphics[width=\paperwidth,height=\paperheight,%
+keepaspectratio]{ufpr.jpg}%
+\vfill
+}}}
+\AddToShipoutPicture*{\BackgroundPic}
+
+\begin{document}
+
+\begin{titlepage}
+\centering{\large{UNIVERSIDADE FEDERAL DO PARANÁ}}
+\\
+\centering{Departamento de Estatística}
+
+\vspace{7.5cm}
+
+\centering{\huge{OPERAÇÃO LAVA JATO TRI}}
+
+\vspace{3cm}
+
+CE095 - Teorias de Avalição
+
+\vspace{2cm}
+
+Andryas Waurzenczak, GRR: 20149125 \\
+Gabriel Sartori, GRR: 2013xxxx
+
+
+\vfill
+
+07/06/2018
+\end{titlepage}
+
+
+\begin{abstract}
+Abstract
+\end{abstract}
+
+
+\pagebreak
+\tableofcontents
+\pagebreak
+
+O presente trabalho é fruto dos esforços da turma do 1º semestre de 2018
+do curso de Teorias de Avaliação ministrada pelo professor
+\href{}{Adilson dos Anjos}.
+
+\section{Introdução}\label{introducao}
+
+A Política é um tema bastante debatido nos mais diversos lugares, seja
+nas universidades, bares, televisão, etc \ldots{} isto porque ela
+interessa a todos nós. Dito isso, o presente trabalho é uma tentativa de
+quantificar o quanto nossos amigos, amigos de nossos amigos, familiares
+e pessoas ao nosso redor estão atualizados/informados sobre a política
+atual do Brasil.
+
+Para tal quantificação selecionamos um tema recente e que tem tido muita
+repercusão. O assunto é a \textbf{Operaçao Lava Jato}, que é um conjunto
+de investigações ainda em andamento pela Polícia Federal do Brasil, que
+começou em 17 de março de 2014.
+
+\section{Materias e Métodos}\label{materias-e-metodos}
+
+O materias e métodos são descritos a seguir.
+
+\subsection{Materias}\label{materias}
+
+O conjunto de dados é um produto dos esforços da turma de Teorias de
+Avaliação, 1º semestre de 2018, com uma pequena contribuição da turma
+passada. A forma de coleta se deu atráves de um formulario online que
+ficou disponivel na plataforma do
+\href{https://www.google.com/forms/about/}{Google} por 21 dias.
+
+O desenvolvimento do questinário foi feito em 5 etapas.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Elaboração dos itens
+\item
+  Validação dos itens
+\item
+  Seleção dos itens
+\item
+  Elaboração de Fatores Associados
+\item
+  Disponibilização do formulário
+\end{enumerate}
+
+Para a execução da 1ª e 2ª etapa utilizou-se como embasamento o
+\href{www.ufpr.br/~aanjos/CE095/guia_elaboracao_revisao_itens_2012_INEP.pdf}{guia
+de elaboração de revisão de itens da INEP - 2012}. Cada aluno
+desenvolveu 3 questões que foram depois distribuidas de forma aleatoria
+para um dos colegas avaliar se o item estava de acordo ou não. A ideia
+básica para a criação e validação dos itens era possuir
+\textbf{TEXTO-BASE}, \textbf{ENUNCIADO}, \textbf{ALTERNATIVAS} e
+\textbf{GABARITO}. Dos itens que passaram dessas 2 primeiras etapas, 20
+foram selecionados e foram complementados com mais 6 itens de um
+instrumento de medida anterior ao nosso que apresentaram boa calibração.
+Ao todo tivemos 26 itens no nosso intrusmento de medida.
+
+Após isso foi elaborado candidatos a fatores associados dos quais foi
+escolhido três e então o questionario foi disponibilizado no dia 10 de
+Maio de 2018.
+
+\textbf{Descrição do conjunto de dados com summary}
+
+\subsection{Métodos}\label{metodos}
+
+Falar os métodos utilizados (descreve-los) Modelo de três parâmetros
+
+\subsection{Recursos Computacionais}\label{recursos-computacionais}
+
+Para as análises o software utilizado foi \citet{software-r} e os
+pacotes utilizados foram:
+
+\section{Resultados}\label{resultados}
+
+\subsection{Análise Descritiva}\label{analise-descritiva}
+
+Curva caracteristica do teste Curva dos itens mais relevantes dos itens
+menos relevantes maior score menor score
+
+\subsection{Aplicação do Modelo X}\label{aplicacao-do-modelo-x}
+
+Criar escala interpretavel
+
+\section{Considerações Finais}\label{consideracoes-finais}
+
+\bibliography{book.bib}
+
+
+\end{document}
