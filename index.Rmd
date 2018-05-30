@@ -20,16 +20,20 @@ knitr::opts_chunk$set(
 # Options xtable
 options(xtable.comment = FALSE,
         xtable.table.placement = "H",
-        knitr.kable.NA = "")
+        knitr.kable.NA = "",
+        scipen = 3)
 ```
 
 ```{r biblioteca}
 # Bibliotecas
 library(knitr)
+library(ggplot2)
+library(ltm)
+library(irtoys)
 ```
 
 ```{r data}
-
+# Ler inf
 ```
 
 O presente trabalho é fruto dos esforços da turma do 1º semestre de 2018
