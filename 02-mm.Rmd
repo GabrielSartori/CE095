@@ -32,9 +32,9 @@ Após isso foi elaborado candidatos a fatores associados dos quais foi
 escolhido três e então o questionario foi disponibilizado no dia 10 de Maio
 de 2018.
 
-O conjunto de dados teve ao todo `r inf$dimensão[1]` respondentes. Para
+O conjunto de dados teve ao todo `r nrow(resp)` respondentes. Para
 informações sobre o questionário, perguntas e alternativas, consulte o
-\@ref(Anexo).
+[Anexo](#Anexo)
 
 
 ## Métodos

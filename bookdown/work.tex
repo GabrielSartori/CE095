@@ -83,10 +83,12 @@
   \predate{}\postdate{}
 
 \usepackage{booktabs}
+% \usepackage{xcolor}
 \usepackage{amsthm}
 \usepackage{float}
 \usepackage[utf8]{inputenc}
 \usepackage[brazil]{babel}
+\usepackage[table]{xcolor}
 \usepackage{eso-pic}
 \newcommand\BackgroundPic{%
 \put(0,0){%
@@ -98,6 +100,18 @@ keepaspectratio]{ufpr.jpg}%
 \vfill
 }}}
 \AddToShipoutPicture*{\BackgroundPic}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage[table]{xcolor}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage[normalem]{ulem}
 
 \begin{document}
 
@@ -198,7 +212,9 @@ Após isso foi elaborado candidatos a fatores associados dos quais foi
 escolhido três e então o questionario foi disponibilizado no dia 10 de
 Maio de 2018.
 
-\textbf{Descrição do conjunto de dados com summary}
+O conjunto de dados teve ao todo 568 respondentes. Para informações
+sobre o questionário, perguntas e alternativas, consulte o
+\protect\hyperlink{Anexo}{Anexo}
 
 \subsection{Métodos}\label{metodos}
 
@@ -211,16 +227,164 @@ pacotes utilizados foram:
 
 \section{Resultados}\label{resultados}
 
+\subsection{Pré-Processamento}\label{pre-processamento}
+
+Antes de prosseguir para análise descritiva dos dados, houve um
+pré-processamento para a limpeza do conjunto de dados. Observou-se que
+alguns respondentes deixaram o questionário em branco, por isso para
+este estudo indivíduos que deixaram mais de 3 itens sem resposta foram
+desconsiderados. Assim o conjunto de dados passou a ter 549 respondetes
+que deixaram no máximo 3 questões sem resposta. E esses individuos que
+não responderam foi considerado a ausência de resposta como errado.
+
 \subsection{Análise Descritiva}\label{analise-descritiva}
 
-Curva caracteristica do teste Curva dos itens mais relevantes dos itens
-menos relevantes maior score menor score
+\subsubsection{Fatores Associados}\label{fatores-associados}
 
-\subsection{Aplicação do Modelo X}\label{aplicacao-do-modelo-x}
+Para dar inicio a análise descritiva iniciamos explorando a frequência
+dos fatores associados.
 
-Criar escala interpretavel
+\begin{center}\includegraphics{work_files/figure-latex/plot_fatores_associados-1} \end{center}
+
+Nota-se pelos gráficos acima que não existe nenhuma concentração de
+frequências, pode-se dizer que os fatores associados tem boa
+variabilidade.
+
+\subsubsection{Frequência de Acertos}\label{frequencia-de-acertos}
+
+Pelo gráfico abaixo pode-se observar a frequência de indíviduos que
+acertaram um número determiniado de itens. Tem-se que a concentração da
+quantidade de acertos está entre 10 e 17.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{work_files/figure-latex/freq-acertos-1} 
+
+}
+
+\caption{Frequência da quantidade de acertos}\label{fig:freq-acertos}
+\end{figure}
+
+\subsubsection{Alpha de Cronbach}\label{alpha-de-cronbach}
+
+Para verificar a consistência internar do instrumento foi calculado o
+\emph{Alpha de Cronbach}.
+
+\[\alpha = 0.7461222\]
+
+Utilizando como referência \citet{landis}, tem-se que o Alpha de
+Cronbach apresentou um valor substâncial de consistência interna do
+instrumento.
+
+\subsection{Modelo de três Parâmetros}\label{modelo-de-tres-parametros}
+
+Para este trabalho foi considerado o modelo de três parâmetros e foi
+excluido itens que tiveram estimativas dos parâmetros de dificuldade e
+discriminação que não estivessem nos seguintes intervalos:
+
+\[-3.5 < \text{Dificuldade} < 3.5\] \[0.6 < \text{Discriminacao} < 3\]
+
+ressalta-se que os intervalos acima sugeridos não foram rigorosos, na
+literatura recomenda-se \textbf{-3 \textless{} Dificuldade \textless{}
+3} e \textbf{0.8 \textless{} Discriminação \textless{} 3}.
+
+Assim, foram removidos os seguintes itens:
+
+i2, i4, i7, i10, i13, i15, i18, i22, i23, i24, i26
+
+\subsubsection{Estimativas do Modelo}\label{estimativas-do-modelo}
+
+\subsubsection{Informação dos itens}\label{informacao-dos-itens}
+
+\begin{center}\includegraphics{work_files/figure-latex/unnamed-chunk-1-1} \end{center}
+
+\subsubsection{Informação do teste}\label{informacao-do-teste}
+
+\begin{center}\includegraphics{work_files/figure-latex/unnamed-chunk-2-1} \end{center}
+
+\subsubsection{\texorpdfstring{Traço Latente
+(\(\theta\))}{Traço Latente (\textbackslash{}theta)}}\label{traco-latente-theta}
+
+\begin{table}[!h]
+
+\caption{\label{tab:tab-traço-latente1}6 Primeiras linhas}
+\centering
+\begin{tabular}[t]{rrrrrr}
+\toprule
+\multicolumn{3}{c}{Ordenado por Acerto} & \multicolumn{3}{c}{Ordenado por Escore} \\
+\cmidrule(l{2pt}r{2pt}){1-3} \cmidrule(l{2pt}r{2pt}){4-6}
+Escore & Posição & Acertos & Escore & Posição & Acertos\\
+\midrule
+-2.114254 & 546 & 1 & -2.273214 & 549 & 1\\
+-2.273214 & 549 & 1 & -2.208348 & 548 & 2\\
+-1.805793 & 539 & 2 & -2.183557 & 547 & 2\\
+-1.874027 & 541 & 2 & -2.114254 & 546 & 1\\
+-1.510591 & 526 & 2 & -2.047984 & 545 & 2\\
+-2.047984 & 545 & 2 & -2.003385 & 544 & 2\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!h]
+
+\caption{\label{tab:tab-traço-latente2}6 Últimas linhas}
+\centering
+\begin{tabular}[t]{rrrrrr}
+\toprule
+\multicolumn{3}{c}{Ordenado por Acerto} & \multicolumn{3}{c}{Ordenado por Escore} \\
+\cmidrule(l{2pt}r{2pt}){1-3} \cmidrule(l{2pt}r{2pt}){4-6}
+Escore & Posição & Acertos & Escore & Posição & Acertos\\
+\midrule
+1.978415 & 4 & 15 & 1.978415 & 4 & 15\\
+1.978415 & 4 & 15 & 1.978415 & 4 & 15\\
+1.978415 & 4 & 15 & 1.978415 & 4 & 15\\
+1.978415 & 4 & 15 & 1.978415 & 4 & 15\\
+1.978415 & 4 & 15 & 1.978415 & 4 & 15\\
+1.978415 & 4 & 15 & 1.978415 & 4 & 15\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Interpretação da Escala}\label{interpretacao-da-escala}
+
+\begin{verbatim}
+## 
+##         none quase-ancora       ancora 
+##           95            5            5
+\end{verbatim}
+
+\subsection{Análise dos Fatores
+Associados}\label{analise-dos-fatores-associados}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = theta ~ ., data = tfatores)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.45473 -0.48886 -0.01575  0.50488  2.62761 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  -0.17388    0.05554  -3.131  0.00184 ** 
+## X1Sempre.     0.60146    0.07170   8.389 4.29e-16 ***
+## X1Raramente. -0.59078    0.09165  -6.446 2.54e-10 ***
+## X1Nunca.     -0.72998    0.18338  -3.981 7.81e-05 ***
+## X2Sim.        0.21119    0.06974   3.028  0.00258 ** 
+## X3Não.        0.04348    0.06322   0.688  0.49190    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.728 on 541 degrees of freedom
+##   (2 observations deleted due to missingness)
+## Multiple R-squared:  0.2973, Adjusted R-squared:  0.2908 
+## F-statistic: 45.78 on 5 and 541 DF,  p-value: < 2.2e-16
+\end{verbatim}
 
 \section{Considerações Finais}\label{consideracoes-finais}
+
+\hypertarget{Anexo}{\section{Anexo}\label{Anexo}}
 
 \bibliography{book.bib}
 

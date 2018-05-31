@@ -1,13 +1,297 @@
 # Resultados
 
+## Pré-Processamento
+
+```{r pre-processamento}
+# Quantidade de NA por linha
+na_per_row <- apply(resp, 1, function(x) sum(is.na(x)))
+# na_per_row
+
+# Individuos com mais de 3 itens sem respostas descartados
+exc <- na_per_row > 3
+# exc
+
+resp <- resp[!exc, ]
+fatores <- fatores[!exc, ]
+```
+
+Antes de prosseguir para análise descritiva dos dados, houve um
+pré-processamento para a limpeza do conjunto de dados. Observou-se que alguns
+respondentes deixaram o questionário em branco, por isso para este estudo
+indivíduos que deixaram mais de 3 itens sem resposta foram
+desconsiderados. Assim o conjunto de dados passou a ter `r nrow(resp)`
+respondetes que deixaram no máximo 3 questões sem resposta. E esses
+individuos que não responderam foi considerado a ausência de resposta como
+errado.
+
+
 ## Análise Descritiva
 
-Curva caracteristica do teste
-Curva dos itens mais relevantes dos itens menos relevantes
-maior score menor score
+### Fatores Associados
+
+Para dar inicio a análise descritiva iniciamos explorando a frequência dos
+fatores associados.
+
+```{r plot_fatores_associados}
+p1 <- ggplot(as.data.frame(table(fatores$X1, useNA = "always")),
+             aes(x =  Var1, y =  Freq)) +
+    geom_bar(stat =  "identity",  fill = "dodgerblue4") +
+    labs(x = "", y = "Frequência") +
+    geom_text(aes(y = Freq + 10, label = Freq), size = 5) +
+    ggtitle(fatores.cols[1])
+    # theme(plot.title = element_text(size = 3))
+
+p2 <- ggplot(as.data.frame(table(fatores$X2, useNA = "always")),
+             aes(x =  Var1, y =  Freq)) +
+    geom_bar(stat =  "identity",  fill = "dodgerblue4") +
+    labs(x = "", y = "Frequência") +
+    geom_text(aes(y = Freq + 10, label = Freq), size = 5) +
+    ggtitle(fatores.cols[2])
+
+p3 <- ggplot(as.data.frame(table(fatores$X3, useNA = "always")),
+             aes(x =  Var1, y =  Freq)) +
+    geom_bar(stat =  "identity",  fill = "dodgerblue4") +
+    labs(x = "", y = "Frequência") +
+    geom_text(aes(y = Freq + 10, label = Freq), size = 5) +
+    ggtitle(fatores.cols[3])
+
+gridExtra::grid.arrange(p1, p2, p3, ncol = 3)
+```
+
+Nota-se pelos gráficos acima que não existe nenhuma concentração de
+frequências, pode-se dizer que os fatores associados tem boa variabilidade.
+
+### Frequência de Acertos
+
+Pelo gráfico abaixo pode-se observar a frequência de indíviduos que acertaram
+um número determiniado de itens. Tem-se que a concentração da quantidade de
+acertos está entre 10 e 17.
+
+```{r freq-acertos, fig.cap = "Frequência da quantidade de acertos"}
+lvls <- lapply(resp, levels)
+
+for (i in 1:26) {
+    gab[[i]] <- factor(gab[[i]],  lvls[[i]])
+}
+
+# Correção
+quest <- mult.choice(resp, as.numeric(gab))
+
+# Assume NA = 0, não respondente
+quest <- ifelse(is.na(quest),0, quest)
+
+desc <- descript(quest)
+
+acertos <- rowSums(quest)
+
+ggplot(as.data.frame(acertos),  aes(x =  as.factor(acertos))) +
+    geom_bar(fill = "dodgerblue4") +
+    labs(x =  "Número de Acertos", y = "Frequência")
+```
+
+### Alpha de Cronbach
+
+Para verificar a consistência internar do instrumento foi calculado o *Alpha
+de Cronbach*.
+
+$$\alpha = `r ltm::cronbach.alpha(quest)[[1]]`$$
+
+Utilizando como referência @landis, tem-se que o Alpha de Cronbach
+apresentou um valor substâncial de consistência interna do instrumento.
 
 
-## Aplicação do Modelo X
+## Modelo de três Parâmetros
+
+```{r est}
+m3p <- est(quest, model =  "3PL", engine = "ltm", nqp = 21)
+
+# Remove Itens com Discriminação maior que 2.5
+itens <- rownames(m3p$est)[m3p$est[, 1] <= 3]
+
+# Itens com Discriminação maior que 2.5
+difitens <- rownames(m3p$est)[m3p$est[, 1] >  3]
+
+quest2 <- quest[, itens]
+
+# Novo Modelo
+m3p1 <- est(quest2, model =  "3PL", engine = "ltm", nqp = 21)
+
+# Ainda com itens com alto valor discriminatorio
+# Remove Itens com Discriminação maior que 3
+itens2 <- rownames(m3p1$est)[m3p1$est[, 1] <= 3]
+
+difitens <- c(difitens, rownames(m3p1$est)[m3p1$est[, 1] >  3])
+
+quest3 <- quest2[, itens2]
+
+# Novo Modelo
+m3p2 <- est(quest3, model =  "3PL", engine = "ltm", nqp = 21)
+
+# Ordena conjunto de difitens
+difitens <- difitens[order(as.integer(stringr::str_extract(difitens,
+                                                           "[0-9]+")))]
+
+```
+
+Para este trabalho foi considerado o modelo de três parâmetros e foi excluido
+itens que tiveram estimativas dos parâmetros de dificuldade e discriminação
+que não estivessem nos seguintes intervalos:
+
+$$-3.5 < \text{Dificuldade} < 3.5$$
+$$0.6 < \text{Discriminacao} < 3$$
+
+ressalta-se que os intervalos acima sugeridos não foram rigorosos, na
+literatura recomenda-se **-3 < Dificuldade < 3** e **0.8 < Discriminação < 3**.
+
+Assim, foram removidos os seguintes itens:
+
+`r difitens`
+
+### Estimativas do Modelo
+
+```{r tabest}
+tabest <- m3p2$est
+colnames(tabest) <- c("Discriminação", "Dificuldade", "Acerto Casual")
+
+# kable(tabest, "latex", booktabs = TRUE, caption =
+#     "Estimativas dos parâmetros do modelo") %>%
+#     kable_styling(latex_options = "striped")
+```
+
+### Informação dos itens
+
+```{r}
+ii <- as.data.frame(cbind(iif(m3p2)$f, x = iif(m3p2)$x))
+ii <- reshape2::melt(ii, id.vars = "x")
+
+ggplot(ii, aes(x =  x, y = value)) +
+    geom_density(stat =  "identity",  colour =  "dodgerblue4") +
+    facet_wrap(~ variable, nrow = 3) +
+    labs(x =  "Habilidade",  y = "Informação do item")
+```
+
+### Informação do teste
+
+```{r}
+it <- as.data.frame(cbind(tif(m3p2$est)$f,  x = tif(m3p2)$x))
+colnames(it) <- c("inf", "x")
+
+ggplot(it, aes(x = x, y = inf)) +
+    geom_density(stat =  "identity", colour =  "dodgerblue4") +
+    labs(x = "Habilidade",  y = "Informação")
+```
+
+### Traço Latente ($\theta$)
+
+```{r tab-traço-latente1}
+# Estima o traço latente posteriori
+tlp <- eap(quest3, m3p2$est, qu=normal.qu())
+
+final.rank <- data.frame('Escore' = tlp[,1],
+                         'Posição' = rank(-tlp[,1]),
+                         'Acertos' = rowSums(quest3))
+
+final <- as.data.frame(cbind(final.rank[order(final.rank$Acertos),],
+                             final.rank[order(final.rank$Escore),]))
 
 
-Criar escala interpretavel
+kable(head(final), "latex",
+      booktabs = TRUE, row.names = FALSE,
+      caption = "6 Primeiras linhas") %>%
+    add_header_above(c("Ordenado por Acerto" = 3,
+                       "Ordenado por Escore" = 3)) %>%
+    kable_styling(latex_options = c("hold_position"))
+```
+
+
+
+```{r tab-traço-latente2}
+kable(tail(final), "latex",
+      booktabs = TRUE, row.names = FALSE,
+      caption = "6 Últimas linhas") %>%
+    add_header_above(c("Ordenado por Acerto" = 3,
+                       "Ordenado por Escore" = 3)) %>%
+    kable_styling(latex_options = c("hold_position"))
+```
+
+
+### Interpretação da Escala
+
+```{r}
+quest4 <- cbind(quest3, theta = tlp[, 1])
+quest4 <- as.data.frame(quest4)
+
+itens <- colnames(quest4)[-ncol(quest4)]
+
+# Theta
+theta <- -3:3
+
+cen <- expand.grid(item = 1:length(itens),
+                   theta = theta)
+
+# mapply(j = cen$item,
+#       k = cen$theta,
+#       FUN =  function(j, k) {
+#           print(paste0("Item: ", j, " - \theta: ", k))
+#       })
+
+anchor <- mapply(j = cen$item,
+       k = cen$theta,
+       SIMPLIFY = FALSE,
+       FUN =  function(j, k) {
+           # Theta
+           Z <- k
+           Y <- Z - 1
+
+           # Item
+           item <- itens[j]
+
+
+           # Condição I
+           # P(U = u | \theta = Z) >= 0.65
+           z <- quest4[quest4$theta <= Z, item]
+           pz <- sum(z) / nrow(quest4)
+
+           I <- pz >=  0.65
+
+           # Condição II
+           # P(U = u | \theta = Y) < 0.5
+           y <- quest4[quest4$theta <= Y, item]
+           py <- sum(y) / nrow(quest4)
+
+           II <- py < 0.5
+
+           # Condição III
+           # P(U = u | \theta = Z) - P(U = u | \theta = Y) >= 0.3
+           yz <- pz - py
+
+           III <- yz >= 0.3
+
+           status <- ifelse(I & II & III, "ancora",
+                     ifelse((I & II) | (I & III) | (II & III),
+                            "quase-ancora", "none"))
+           data.frame(item, Z, I, II, III, status)
+           # results <- rbind(results, data.frame(i, Z, I, II, III, status))
+
+       })
+
+anchor <- do.call(rbind, anchor)
+# anchor
+
+table(anchor$status)
+```
+
+## Análise dos Fatores Associados
+
+```{r}
+tfatores <- cbind(fatores, theta = tlp[, 1])
+tfatores <- as.data.frame(tfatores)
+
+
+rl <- lm(theta ~ ., data = tfatores)
+summary(rl)
+
+# fatores.cols
+# plot(rl)
+
+```
