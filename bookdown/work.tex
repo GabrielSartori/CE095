@@ -100,18 +100,6 @@ keepaspectratio]{ufpr.jpg}%
 \vfill
 }}}
 \AddToShipoutPicture*{\BackgroundPic}
-\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{array}
-\usepackage{multirow}
-\usepackage[table]{xcolor}
-\usepackage{wrapfig}
-\usepackage{float}
-\usepackage{colortbl}
-\usepackage{pdflscape}
-\usepackage{tabu}
-\usepackage{threeparttable}
-\usepackage[normalem]{ulem}
 
 \begin{document}
 
@@ -131,7 +119,7 @@ CE095 - Teorias de Avalição
 \vspace{2cm}
 
 Andryas Waurzenczak, GRR: 20149125 \\
-Gabriel Sartori, GRR: 2013xxxx
+Gabriel Sartori, GRR: 20124671
 
 
 \vfill
@@ -167,11 +155,11 @@ repercusão. O assunto é a \textbf{Operaçao Lava Jato}, que é um conjunto
 de investigações ainda em andamento pela Polícia Federal do Brasil, que
 começou em 17 de março de 2014.
 
-\section{Materias e Métodos}\label{materias-e-metodos}
+\section{Materiais e Métodos}\label{materiais-e-metodos}
 
 O materias e métodos são descritos a seguir.
 
-\subsection{Materias}\label{materias}
+\subsection{Materiais}\label{materiais}
 
 O conjunto de dados é um produto dos esforços da turma de Teorias de
 Avaliação, 1º semestre de 2018, com uma pequena contribuição da turma
@@ -244,6 +232,35 @@ não responderam foi considerado a ausência de resposta como errado.
 Para dar inicio a análise descritiva iniciamos explorando a frequência
 dos fatores associados.
 
+\begin{itemize}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\alph{enumi})}
+  \tightlist
+  \item
+    Você procura se informar sobre os principais acontecimentos
+    políticos no país?
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\alph{enumi})}
+  \setcounter{enumi}{1}
+  \tightlist
+  \item
+    Você participou de alguma manifestação de apoio a Operação Lava
+    Jato? Por exemplo: participou de alguma passeata ou protesto, mandou
+    mensagens por redes sociais na internet etc.
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\alph{enumi})}
+  \setcounter{enumi}{2}
+  \tightlist
+  \item
+    Você mora em Curitiba?
+  \end{enumerate}
+\end{itemize}
+
 \begin{center}\includegraphics{work_files/figure-latex/plot_fatores_associados-1} \end{center}
 
 Nota-se pelos gráficos acima que não existe nenhuma concentração de
@@ -270,7 +287,7 @@ quantidade de acertos está entre 10 e 17.
 Para verificar a consistência internar do instrumento foi calculado o
 \emph{Alpha de Cronbach}.
 
-\[\alpha = 0.7461222\]
+\[\alpha = 0.75\]
 
 Utilizando como referência \citet{landis}, tem-se que o Alpha de
 Cronbach apresentou um valor substâncial de consistência interna do
@@ -347,11 +364,16 @@ Escore & Posição & Acertos & Escore & Posição & Acertos\\
 
 \subsubsection{Interpretação da Escala}\label{interpretacao-da-escala}
 
-\begin{verbatim}
-## 
-##         none quase-ancora       ancora 
-##           95            5            5
-\end{verbatim}
+\begin{figure}[H]
+
+{\centering \includegraphics{work_files/figure-latex/itemancoras-1} 
+
+}
+
+\caption{Itens Âncoras}\label{fig:itemancoras}
+\end{figure}
+
+Os seguintes itens foram ancoras\ldots{}.
 
 \subsection{Análise dos Fatores
 Associados}\label{analise-dos-fatores-associados}
@@ -362,24 +384,24 @@ Associados}\label{analise-dos-fatores-associados}
 ## lm(formula = theta ~ ., data = tfatores)
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.45473 -0.48886 -0.01575  0.50488  2.62761 
+##     Min      1Q  Median      3Q     Max 
+## -2.4547 -0.4889 -0.0157  0.5049  2.6276 
 ## 
 ## Coefficients:
 ##              Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)  -0.17388    0.05554  -3.131  0.00184 ** 
-## X1Sempre.     0.60146    0.07170   8.389 4.29e-16 ***
-## X1Raramente. -0.59078    0.09165  -6.446 2.54e-10 ***
-## X1Nunca.     -0.72998    0.18338  -3.981 7.81e-05 ***
-## X2Sim.        0.21119    0.06974   3.028  0.00258 ** 
-## X3Não.        0.04348    0.06322   0.688  0.49190    
+## (Intercept)   -0.1739     0.0555   -3.13   0.0018 ** 
+## X1Sempre.      0.6015     0.0717    8.39  4.3e-16 ***
+## X1Raramente.  -0.5908     0.0916   -6.45  2.5e-10 ***
+## X1Nunca.      -0.7300     0.1834   -3.98  7.8e-05 ***
+## X2Sim.         0.2112     0.0697    3.03   0.0026 ** 
+## X3Não.         0.0435     0.0632    0.69   0.4919    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 0.728 on 541 degrees of freedom
+## Residual standard error: 0.73 on 541 degrees of freedom
 ##   (2 observations deleted due to missingness)
-## Multiple R-squared:  0.2973, Adjusted R-squared:  0.2908 
-## F-statistic: 45.78 on 5 and 541 DF,  p-value: < 2.2e-16
+## Multiple R-squared:  0.297,  Adjusted R-squared:  0.291 
+## F-statistic: 45.8 on 5 and 541 DF,  p-value: <2e-16
 \end{verbatim}
 
 \section{Considerações Finais}\label{consideracoes-finais}

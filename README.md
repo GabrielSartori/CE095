@@ -23,4 +23,4 @@ tempo.
 
 
 Este trabalho foi desenvolvido por mim, Andryas Waurzenczak e pelo
-Gabriel Sartori.
+Gabriel Sartori Klostermann.

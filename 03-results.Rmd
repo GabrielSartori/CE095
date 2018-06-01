@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Resultados
 
 ## Pré-Processamento
@@ -13,6 +18,25 @@ exc <- na_per_row > 3
 
 resp <- resp[!exc, ]
 fatores <- fatores[!exc, ]
+
+fatores$X1 <- forcats::fct_infreq(fatores$X1)
+fatores$X2 <- forcats::fct_infreq(fatores$X2)
+fatores$X3 <- forcats::fct_infreq(fatores$X3)
+
+# Novo Código Gráfico ------------------------------------
+tb_f1 <- as.data.frame(table(fatores$X1, useNA = "always"))
+tb_f1$Var1 <-  as.character(tb_f1$Var1)
+tb_f1[is.na(tb_f1)] <- "NA"
+
+tb_f2 <- as.data.frame(table(fatores$X2, useNA = "always"))
+tb_f2$Var1 <-  as.character(tb_f2$Var1)
+tb_f2[is.na(tb_f2)] <- "NA"
+
+tb_f3 <- as.data.frame(table(fatores$X3, useNA = "always"))
+tb_f3$Var1 <-  as.character(tb_f3$Var1)
+tb_f3[is.na(tb_f3)] <- "NA"
+
+# colnames(fatores.cols[1])
 ```
 
 Antes de prosseguir para análise descritiva dos dados, houve um
@@ -32,30 +56,43 @@ errado.
 Para dar inicio a análise descritiva iniciamos explorando a frequência dos
 fatores associados.
 
-```{r plot_fatores_associados}
-p1 <- ggplot(as.data.frame(table(fatores$X1, useNA = "always")),
-             aes(x =  Var1, y =  Freq)) +
-    geom_bar(stat =  "identity",  fill = "dodgerblue4") +
-    labs(x = "", y = "Frequência") +
-    geom_text(aes(y = Freq + 10, label = Freq), size = 5) +
-    ggtitle(fatores.cols[1])
-    # theme(plot.title = element_text(size = 3))
++ a) Você procura se informar sobre os principais acontecimentos políticos no país?
++ b) Você participou de alguma manifestação de apoio a Operação Lava Jato? Por exemplo: participou de alguma passeata ou protesto, mandou mensagens por redes sociais na internet etc.
++ c) Você mora em Curitiba?
 
-p2 <- ggplot(as.data.frame(table(fatores$X2, useNA = "always")),
-             aes(x =  Var1, y =  Freq)) +
-    geom_bar(stat =  "identity",  fill = "dodgerblue4") +
-    labs(x = "", y = "Frequência") +
-    geom_text(aes(y = Freq + 10, label = Freq), size = 5) +
-    ggtitle(fatores.cols[2])
+```{r plot_fatores_associados, fig.width = 8, fig.height = 6}
 
-p3 <- ggplot(as.data.frame(table(fatores$X3, useNA = "always")),
-             aes(x =  Var1, y =  Freq)) +
-    geom_bar(stat =  "identity",  fill = "dodgerblue4") +
-    labs(x = "", y = "Frequência") +
-    geom_text(aes(y = Freq + 10, label = Freq), size = 5) +
-    ggtitle(fatores.cols[3])
+p1 <- ggplot(tb_f1,
+             aes(forcats::fct_reorder(Var1, Freq), y =  Freq)) +
+  geom_bar(stat =  "identity",  fill = "dodgerblue4") +
+  labs(x = "", y = "Frequência") +
+  geom_text(aes(y = Freq + 10, label = Freq), size = 5) +
+  # ggtitle(fatores.cols[1]) +
+  ggtitle("a)") +
+  coord_flip() +
+  theme(plot.title = element_text(hjust = 0.5))
 
-gridExtra::grid.arrange(p1, p2, p3, ncol = 3)
+p2 <- ggplot(tb_f2,
+             aes(forcats::fct_reorder(Var1, Freq), y =  Freq)) +
+  geom_bar(stat =  "identity",  fill = "dodgerblue4") +
+  labs(x = "", y = "Frequência") +
+  geom_text(aes(y = Freq + 10, label = Freq), size = 5) +
+  coord_flip() +
+  # ggtitle(fatores.cols[2]) +
+  ggtitle("b)") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+p3 <- ggplot(tb_f3,
+             aes(forcats::fct_reorder(Var1, Freq), y =  Freq)) +
+  geom_bar(stat =  "identity",  fill = "dodgerblue4") +
+  labs(x = "", y = "Frequência") +
+  geom_text(aes(y = Freq + 10, label = Freq), size = 5) +
+  ggtitle(fatores.cols[3]) +
+  coord_flip() +
+  ggtitle("c)") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+gridExtra::grid.arrange(p1, p2, p3)
 ```
 
 Nota-se pelos gráficos acima que não existe nenhuma concentração de
@@ -278,8 +315,29 @@ anchor <- mapply(j = cen$item,
 anchor <- do.call(rbind, anchor)
 # anchor
 
-table(anchor$status)
+# table(anchor$status)
 ```
+
+```{r itemancoras, fig.cap = "Itens Âncoras", fig.width = 5, fig.height = 4}
+require(dplyr)
+
+db_ancor <- anchor[anchor$status !=  "none", ]
+
+db_ancor %>% 
+  ggplot(
+    aes(Z, item, label = item, colour = status, fill = status) 
+  ) + 
+  geom_label(colour = "white", fontface = "bold") +
+  scale_x_continuous(breaks = c(0, 1), limits = c(-0.2, 1.2)) +
+  theme(axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank()) +
+  labs(title = "Itens Âncora no Traço Latente", x = "Traço Latente") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+```
+
+Os seguintes itens foram ancoras....
 
 ## Análise dos Fatores Associados
 

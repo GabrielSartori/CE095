@@ -1,8 +1,8 @@
-# Materias e Métodos
+# Materiais e Métodos
 
 O materias e métodos são descritos a seguir.
 
-## Materias
+## Materiais
 
 O conjunto de dados é um produto dos esforços da turma de Teorias de
 Avaliação, 1º semestre de 2018, com uma pequena contribuição da turma passada.
@@ -35,7 +35,6 @@ de 2018.
 O conjunto de dados teve ao todo `r nrow(resp)` respondentes. Para
 informações sobre o questionário, perguntas e alternativas, consulte o
 [Anexo](#Anexo)
-
 
 ## Métodos
 
